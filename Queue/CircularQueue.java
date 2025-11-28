@@ -1,64 +1,72 @@
 package Queue;
 public class CircularQueue {
-    static class Node {
-        int data;
-        Node next;
+    static class Queue{
+        int arr[];
+        int front;
+        int rear;
+        int capacity;
+        int size;
+        public Queue(){
+            arr = new int[10];
+            capacity = 10;
+            size = 0;
+            front = 0;
+            rear = -1;
+        }
 
-        Node(int data) {
-            this.data = data;
-            this.next = null;
+        public void offer(int data){
+            if(size == capacity){
+                throw new StackOverflowError("Queue is full");
+            }else{
+                rear = (rear + 1) % capacity;
+                arr[rear] = data;
+                size++;
+            }
+        }
+
+        public int poll(){
+            if(size == 0){
+                throw new StackOverflowError("Queue is empty");
+            }
+            else{
+                int data = arr[front];
+                front = (front + 1) % capacity;
+                size--;
+                return data;
+            }
+        }
+
+        public int peek(){
+            if(size == 0){
+                throw new StackOverflowError("Queue is empty");
+            }else{
+                return arr[front];
+            }
+        }
+
+        public boolean isEmpty(){
+            return size == 0;
+        }
+
+        public boolean isFull(){
+            return size == capacity;
+        }
+
+        public int size(){
+            return size;
         }
     }
-
-    Node front, rear;
-    int size;
-
-    public CircularQueue() {
-        this.front = this.rear = null;
-        this.size = 0;
-    }
-
-    public void enqueue(int data) {
-        Node newNode = new Node(data);
-        if (this.rear == null) {
-            this.front = this.rear = newNode;
-            this.rear.next = this.front; 
-            size++;
-            return;
-        }
-        this.rear.next = newNode;
-        this.rear = newNode;
-        this.rear.next = this.front; 
-        size++;
-    }
-
-    public int dequeue() {
-        if (this.front == null) {
-            System.out.println("Queue is empty");
-            return -1;
-        }
-        int data = this.front.data;
-        if (this.front == this.rear) {
-            this.front = this.rear = null;
-        } else {
-            this.front = this.front.next;
-            this.rear.next = this.front; 
-        }
-        size--;
-        return data;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public static void main(String[] args) {
-        CircularQueue queue = new CircularQueue();
-        queue.enqueue(10);
-        queue.enqueue(20);
-        queue.enqueue(30);
-
-        System.out.println("Dequeued: " + queue.dequeue());
-        System.out.println("Current size: " + queue.getSize());
-}
+    public static void main(String[] args) { 
+        // Queue q = new Queue();
+        // q.offer(10);
+        // q.offer(20);
+        // q.offer(30);
+        // System.out.println("Front element is: " + q.peek());
+        // System.out.println("Queue size is: " + q.size());
+        // System.out.println("Popped element is: " + q.poll());
+        // System.out.println("Is queue empty? " + q.isEmpty());
+        int  ch1 = '-';
+        int  ch2 = '+';
+        System.out.println("Character comparison: " + (ch1 > ch2));
+  }
 }
