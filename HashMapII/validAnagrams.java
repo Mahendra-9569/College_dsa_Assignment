@@ -26,5 +26,6 @@ public class validAnagrams {
         String s = "anagram";
         String t = "nagaram";
         System.out.println("Are \"" + s + "\" and \"" + t + "\" anagrams? " + isAnagram(s, t)); 
+        
     }
 }
